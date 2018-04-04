@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1522826533658.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2885418121",
+    "id" : "C0A201E3",
+    "lastKnownWriteTime" : 1522831863,
+    "last_content_update" : 1522831863266,
+    "path" : "C:/Rproject/day08/hive2.R",
+    "project_path" : "hive2.R",
+    "properties" : {
+        "cursorPosition" : "68,0",
+        "scrollLine" : "45",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
