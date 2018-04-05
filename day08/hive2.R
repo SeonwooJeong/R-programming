@@ -68,7 +68,7 @@ r3<-data.frame(YEAR=s3$YEAR,result=s3$TOTAL/car3$TOTAL*100000)#인천
 loc=c('서울','경기','인천')
 options(scipen=100)
 ggplot(data = r1, aes(x=YEAR,y=result))+geom_line()+geom_point()+geom_line(data=r2,aes(x=YEAR,y=result),colour="blue")+geom_line(data=r3,aes(x = YEAR, y = result),colour="red")+theme_bw()
-p+labs(fill="지역")
+
 
 
 
