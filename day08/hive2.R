@@ -1,6 +1,6 @@
-# Databaseì™€ hadoop ë°ì´í„°ë¥¼ ê°€ì§€ê³  ì™€ì„œ Rë¡œ ë¶„ì„í•œë‹¤.
-# Rì—ì„œ í•¨ìˆ˜í™” ì‹œì¼œ ìŠ¤í¬ë¦½íŠ¸ ì‘ì„±í•œë‹¤.
-
+# Database¿Í hadoop µ¥ÀÌÅÍ¸¦ °¡Áö°í ¿Í¼­ R·Î ºĞ¼®ÇÑ´Ù.
+# R¿¡¼­ ÇÔ¼öÈ­ ½ÃÄÑ ½ºÅ©¸³Æ® ÀÛ¼ºÇÑ´Ù.
+r<- function(){
 library(rJava)
 library(RJDBC)
 library(DBI)
@@ -34,7 +34,7 @@ s3<-dbGetQuery(conn,ic);
 colnames(s3)<-c('YEAR','TOTAL')
 # 5. Close
 dbDisconnect(conn)
-#Hive ë°ì´í„° ëŒì–´ì˜´
+#Hive µ¥ÀÌÅÍ ²ø¾î¿È
 ###################################################################
 drvName<- 'oracle.jdbc.driver.OracleDriver';
 id<- 'ruser';
@@ -46,9 +46,9 @@ drv <- JDBC(driverClass = drvName,classPath = 'c:\\java_hive_lib\\ojdbc6.jar')
 # 2. Connection
 conn<- dbConnect(drv,url,id,pwd)
 # 3. Statement
-sqlstr2<-"select year, total from car where location='ì„œìš¸íŠ¹ë³„ì‹œ' AND year>= 2012 AND year<=2016";
-sqlstr3<-"select year, total from car where location='ê²½ê¸°ë„'AND year>= 2012 AND year<=2016";
-sqlstr4<-"select year, total from car where location='ì¸ì²œê´‘ì—­ì‹œ'AND year>= 2012 AND year<=2016";
+sqlstr2<-"select year, total from car where location='¼­¿ïÆ¯º°½Ã' AND year>= 2012 AND year<=2016";
+sqlstr3<-"select year, total from car where location='°æ±âµµ'AND year>= 2012 AND year<=2016";
+sqlstr4<-"select year, total from car where location='ÀÎÃµ±¤¿ª½Ã'AND year>= 2012 AND year<=2016";
 # 4. ResultSet
 car<-dbGetQuery(conn,sqlstr2);
 car2<-dbGetQuery(conn,sqlstr3);
@@ -56,18 +56,22 @@ car3<-dbGetQuery(conn,sqlstr4);
 class(car)
 # 5. Close
 dbDisconnect(conn)
-#Oracle ë°ì´í„° ë¶ˆëŸ¬ì˜´ 
+#Oracle µ¥ÀÌÅÍ ºÒ·¯¿È 
 ####################################################################
-#ë°ì´í„° ì¡°í•© s$totalê³¼ car$totalì„ ì‚¬ìš©í•´ì„œ ì˜ë¯¸ë¶€ì—¬
-# s$total/car$total*100000 ì´ ë†’ì„ ìˆ˜ë¡ ì°¨ëŸ‰ë“±ë¡ëŒ€ë¹„ ì‚¬ê³ ìœ¨ì´ ë†’ìŒ
-r1<-data.frame(YEAR=s1$YEAR,result=s1$TOTAL/car$TOTAL*100000) #ì„œìš¸
-r2<-data.frame(YEAR=s2$YEAR,result=s2$TOTAL/car2$TOTAL*100000)#ê²½ê¸°ë„
-r3<-data.frame(YEAR=s3$YEAR,result=s3$TOTAL/car3$TOTAL*100000)#ì¸ì²œ
+#µ¥ÀÌÅÍ Á¶ÇÕ s$total°ú car$totalÀ» »ç¿ëÇØ¼­ ÀÇ¹ÌºÎ¿©
+# s$total/car$total*100000 ÀÌ ³ôÀ» ¼ö·Ï Â÷·®µî·Ï´ëºñ »ç°íÀ²ÀÌ ³ôÀ½
+r1<-data.frame('¼­¿ï½Ã'=s1$TOTAL/car$TOTAL*100000) #¼­¿ï
+r2<-data.frame('°æ±âµµ'=s2$TOTAL/car2$TOTAL*100000)#°æ±âµµ
+r3<-data.frame('ÀÎÃµ½Ã'=s3$TOTAL/car3$TOTAL*100000)#ÀÎÃµ
+r4<-data.frame(YEAR=s3$YEAR)
 
+  v3<-data.frame(r4,r1,r2,r3);
+  return(v3);
+}
 
-loc=c('ì„œìš¸','ê²½ê¸°','ì¸ì²œ')
-options(scipen=100)
-ggplot(data = r1, aes(x=YEAR,y=result))+geom_line()+geom_point()+geom_line(data=r2,aes(x=YEAR,y=result),colour="blue")+geom_line(data=r3,aes(x = YEAR, y = result),colour="red")+theme_bw()
+#loc=c('¼­¿ï','°æ±â','ÀÎÃµ')
+#options(scipen=100)
+#ggplot(data = r1, aes(x=YEAR,y=result))+geom_line()+geom_point()+geom_line(data=r2,aes(x=YEAR,y#=result),colour="blue")+geom_line(data=r3,aes(x = YEAR, y = result),colour="red")+theme_bw()
 
 
 
